@@ -30,10 +30,14 @@
  */
 
 #import "ViewController.h"
+#import "Plus1ConversionTracker.h"
+
+#define Plus1AppId 3030
 
 @interface ViewController ()
 {
     UILabel *_label;
+    Plus1ConversionTracker *_tracker;
 }
 
 @end
@@ -51,6 +55,9 @@
     _label.textAlignment = UITextAlignmentCenter;
 
     [self.view addSubview:_label];
+    
+    _tracker = [[Plus1ConversionTracker alloc] initWithApplicationId:Plus1AppId];
+    [_tracker run];
 }
 
 - (void)viewDidUnload
@@ -59,6 +66,9 @@
 
     if (_label != nil)
         [_label release], _label = nil;
+
+    if (_tracker != nil)
+        [_tracker release], _tracker = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
