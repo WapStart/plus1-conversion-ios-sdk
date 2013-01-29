@@ -40,5 +40,6 @@
 
 - (id) initWithApplicationId:(NSInteger) applicationId;
 - (BOOL) isFirstRun;
+- (void) run;
 
 @end
