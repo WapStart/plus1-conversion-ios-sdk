@@ -32,7 +32,7 @@
 #import "Plus1ConversionTracker.h"
 
 #define ConversionUrl @"http://cnv.plus1.wapstart.ru/app/3/"
-#define PreferencesName @"Plus1ConversionTrackerFirstRun"
+#define PreferencesName @"Plus1ConversionTrackerAlreadyTracked"
 
 @interface Plus1ConversionTracker (PrivateMethods)
 
@@ -54,7 +54,7 @@
 
 - (BOOL) isFirstRun
 {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:PreferencesName];
+    return ![[NSUserDefaults standardUserDefaults] boolForKey:PreferencesName];
 }
 
 - (void) run
