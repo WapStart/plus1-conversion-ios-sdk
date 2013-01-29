@@ -38,4 +38,7 @@
 
 @property (nonatomic, assign) NSInteger applicationId;
 
+- (id) initWithApplicationId:(NSInteger) applicationId;
+- (BOOL) isFirstRun;
+
 @end
