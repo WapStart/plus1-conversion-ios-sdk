@@ -32,8 +32,6 @@
 #import "ViewController.h"
 #import "Plus1ConversionTracker.h"
 
-#define Plus1AppId 3030
-
 @interface ViewController ()
 {
     UILabel *_label;
@@ -44,7 +42,7 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
 	
@@ -53,14 +51,21 @@
     _label.text = @"Hello conversion";
     _label.backgroundColor = [UIColor clearColor];
     _label.textAlignment = UITextAlignmentCenter;
-
     [self.view addSubview:_label];
-    
+
     _tracker = [[Plus1ConversionTracker alloc] initWithApplicationId:Plus1AppId];
-    [_tracker run];
+    if ([_tracker isFirstRun]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hello conversion"
+                                                        message:@"This your first run of HelloConversion. And now we will run conversion tracking."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
 }
 
-- (void)viewDidUnload
+- (void) viewDidUnload
 {
     [super viewDidUnload];
 
@@ -71,9 +76,16 @@
         [_tracker release], _tracker = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation) interfaceOrientation
 {
-    return NO;
+    return interfaceOrientation == UIInterfaceOrientationPortrait;
 }
 
+- (void) alertView:(UIAlertView *) alertView clickedButtonAtIndex:(NSInteger) buttonIndex
+{
+    if (_tracker == nil)
+        _tracker = [[Plus1ConversionTracker alloc] initWithApplicationId:Plus1AppId];
+
+    [_tracker run];
+}
 @end
