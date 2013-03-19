@@ -13,4 +13,4 @@
     #import <Foundation/Foundation.h>
 #endif
 
-#define Plus1AppId /* Place your WapStart Plus1 application id here */
+#define Plus1CampaignId /* Place your WapStart Plus1 campaign id here */

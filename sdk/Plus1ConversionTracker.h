@@ -34,11 +34,14 @@
 @interface Plus1ConversionTracker : NSObject
 {
     NSInteger _applicationId;
+    NSInteger _campaignId;
 }
 
 @property (nonatomic, assign) NSInteger applicationId;
+@property (nonatomic, assign) NSInteger campaignId;
 
 - (id) initWithApplicationId:(NSInteger) applicationId;
+- (id) initWithCampaignId:(NSInteger) campaignId;
 - (BOOL) isFirstRun;
 - (void) run;
 

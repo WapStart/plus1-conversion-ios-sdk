@@ -35,7 +35,6 @@
 @interface ViewController ()
 {
     UILabel *_label;
-    Plus1ConversionTracker *_tracker;
 }
 
 @end
@@ -53,16 +52,9 @@
     _label.textAlignment = UITextAlignmentCenter;
     [self.view addSubview:_label];
 
-    _tracker = [[Plus1ConversionTracker alloc] initWithApplicationId:Plus1AppId];
-    if ([_tracker isFirstRun]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hello conversion"
-                                                        message:@"This your first run of HelloConversion. And now we will run conversion tracking."
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-    }
+    Plus1ConversionTracker *tracker = [[Plus1ConversionTracker alloc] initWithCampaignId:Plus1CampaignId];
+    [tracker run];
+    [tracker release];
 }
 
 - (void) viewDidUnload
@@ -71,21 +63,10 @@
 
     if (_label != nil)
         [_label release], _label = nil;
-
-    if (_tracker != nil)
-        [_tracker release], _tracker = nil;
 }
 
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation) interfaceOrientation
 {
     return interfaceOrientation == UIInterfaceOrientationPortrait;
-}
-
-- (void) alertView:(UIAlertView *) alertView clickedButtonAtIndex:(NSInteger) buttonIndex
-{
-    if (_tracker == nil)
-        _tracker = [[Plus1ConversionTracker alloc] initWithApplicationId:Plus1AppId];
-
-    [_tracker run];
 }
 @end

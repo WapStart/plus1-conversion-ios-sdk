@@ -31,7 +31,9 @@
 
 #import "Plus1ConversionTracker.h"
 
-#define ConversionUrl @"http://cnv.plus1.wapstart.ru/app/3/"
+#define ConversionUrl @"http://cnv.plus1.wapstart.ru/"
+#define ConversionType 3
+
 #define PreferencesName @"Plus1ConversionAlreadyTracked"
 
 @interface Plus1ConversionTracker (PrivateMethods)
@@ -43,12 +45,21 @@
 @implementation Plus1ConversionTracker
 
 @synthesize applicationId = _applicationId;
+@synthesize campaignId = _campaignId;
 
 - (id) initWithApplicationId:(NSInteger) applicationId
 {
     if ((self = [super init]) != nil)
         self.applicationId = applicationId;
     
+    return self;
+}
+
+- (id) initWithCampaignId:(NSInteger)campaignId
+{
+    if ((self = [super init]) != nil)
+        self.campaignId = campaignId;
+
     return self;
 }
 
@@ -67,7 +78,10 @@
             [defaults synchronize];
         }
 
-        [[UIApplication sharedApplication] openURL:[self getConversionUrl]];
+        NSURL *url = [self getConversionUrl];
+
+        if (url != nil)
+            [[UIApplication sharedApplication] openURL:url];
     }
 }
 
@@ -75,7 +89,12 @@
 {
     NSMutableString *url = [NSMutableString stringWithString:ConversionUrl];
 
-    [url appendFormat:@"%d", _applicationId];
+    if (_campaignId)
+        [url appendFormat:@"%@/%d/%d", @"campaign", ConversionType, _campaignId];
+    else if (_applicationId)
+        [url appendFormat:@"%@/%d/%d", @"app", ConversionType, _applicationId];
+    else
+        return nil;
     
     return [NSURL URLWithString:url];
 }
