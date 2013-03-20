@@ -71,17 +71,18 @@
 - (void) run
 {
     if ([self isFirstRun]) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-        if (defaults) {
-            [defaults setBool:YES forKey:PreferencesName];
-            [defaults synchronize];
-        }
-
         NSURL *url = [self getConversionUrl];
 
-        if (url != nil)
+        if (url != nil) {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+            if (defaults) {
+                [defaults setBool:YES forKey:PreferencesName];
+                [defaults synchronize];
+            }
+
             [[UIApplication sharedApplication] openURL:url];
+        }
     }
 }
 
@@ -93,8 +94,11 @@
         [url appendFormat:@"%@/%d/%d", @"campaign", ConversionType, _campaignId];
     else if (_applicationId)
         [url appendFormat:@"%@/%d/%d", @"app", ConversionType, _applicationId];
-    else
+    else {
+        NSLog(@"Plus1ConversionTracker: %@", @"You forget about set campain/application id");
+
         return nil;
+    }
     
     return [NSURL URLWithString:url];
 }
