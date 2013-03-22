@@ -30,6 +30,7 @@
  */
 
 #import "Plus1ConversionTracker.h"
+#import "NSString+Base64.h"
 
 #define ConversionUrl @"http://cnv.plus1.wapstart.ru/"
 #define ConversionType 3
@@ -46,19 +47,24 @@
 
 @synthesize applicationId = _applicationId;
 @synthesize campaignId = _campaignId;
+@synthesize callbackUrl = _callbackUrl;
 
-- (id) initWithApplicationId:(NSInteger) applicationId
+- (id) initWithApplicationId:(NSInteger) applicationId andCallbackUrl:(NSString *) callbackUrl;
 {
-    if ((self = [super init]) != nil)
+    if ((self = [super init]) != nil) {
         self.applicationId = applicationId;
+        self.callbackUrl = callbackUrl;
+    }
     
     return self;
 }
 
-- (id) initWithCampaignId:(NSInteger)campaignId
+- (id) initWithCampaignId:(NSInteger)campaignId andCallbackUrl:(NSString *) callbackUrl;
 {
-    if ((self = [super init]) != nil)
+    if ((self = [super init]) != nil) {
         self.campaignId = campaignId;
+        self.callbackUrl = callbackUrl;
+    }
 
     return self;
 }
@@ -88,6 +94,9 @@
 
 - (NSURL *) getConversionUrl
 {
+    if (!_callbackUrl)
+        @throw([NSException exceptionWithName:@"Plus1ConversionTracker" reason:@"You must define callback url" userInfo:nil]);
+
     NSMutableString *url = [NSMutableString stringWithString:ConversionUrl];
 
     if (_campaignId)
@@ -99,6 +108,8 @@
 
         return nil;
     }
+    
+    [url appendFormat:@"/?callback=%@", [NSString stringWithBase64EncodedString:_callbackUrl]];
     
     return [NSURL URLWithString:url];
 }

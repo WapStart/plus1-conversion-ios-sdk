@@ -35,13 +35,15 @@
 {
     NSInteger _applicationId;
     NSInteger _campaignId;
+    NSString *_callbackUrl;
 }
 
 @property (nonatomic, assign) NSInteger applicationId;
 @property (nonatomic, assign) NSInteger campaignId;
+@property (nonatomic, retain) NSString *callbackUrl;
 
-- (id) initWithApplicationId:(NSInteger) applicationId;
-- (id) initWithCampaignId:(NSInteger) campaignId;
+- (id) initWithApplicationId:(NSInteger) applicationId andCallbackUrl:(NSString *) callbackUrl;
+- (id) initWithCampaignId:(NSInteger) campaignId andCallbackUrl:(NSString *) callbackUrl;
 - (BOOL) isFirstRun;
 - (void) run;
 

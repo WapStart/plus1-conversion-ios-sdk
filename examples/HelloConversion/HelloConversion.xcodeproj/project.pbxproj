@@ -15,6 +15,7 @@
 		36C0A12816B81B49000E84FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C0A12716B81B49000E84FC /* AppDelegate.m */; };
 		36C0A12B16B81B49000E84FC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C0A12A16B81B49000E84FC /* ViewController.m */; };
 		36C0A13A16B81C1E000E84FC /* Plus1ConversionTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C0A13916B81C1E000E84FC /* Plus1ConversionTracker.m */; };
+		E7DCC5CE16FC644F0061BC04 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = E7DCC5CD16FC644F0061BC04 /* NSString+Base64.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,8 @@
 		36C0A12A16B81B49000E84FC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		36C0A13816B81C1E000E84FC /* Plus1ConversionTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plus1ConversionTracker.h; sourceTree = "<group>"; };
 		36C0A13916B81C1E000E84FC /* Plus1ConversionTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Plus1ConversionTracker.m; sourceTree = "<group>"; };
+		E7DCC5CC16FC644F0061BC04 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		E7DCC5CD16FC644F0061BC04 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +107,8 @@
 			children = (
 				36C0A13816B81C1E000E84FC /* Plus1ConversionTracker.h */,
 				36C0A13916B81C1E000E84FC /* Plus1ConversionTracker.m */,
+				E7DCC5CC16FC644F0061BC04 /* NSString+Base64.h */,
+				E7DCC5CD16FC644F0061BC04 /* NSString+Base64.m */,
 			);
 			name = "Conversion SDK";
 			path = ../../sdk;
@@ -135,7 +140,7 @@
 		36C0A10A16B81B49000E84FC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = 36C0A10D16B81B49000E84FC /* Build configuration list for PBXProject "HelloConversion" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -174,6 +179,7 @@
 				36C0A12816B81B49000E84FC /* AppDelegate.m in Sources */,
 				36C0A12B16B81B49000E84FC /* ViewController.m in Sources */,
 				36C0A13A16B81C1E000E84FC /* Plus1ConversionTracker.m in Sources */,
+				E7DCC5CE16FC644F0061BC04 /* NSString+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +202,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -221,6 +231,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -277,6 +291,7 @@
 				36C0A13616B81B49000E84FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
