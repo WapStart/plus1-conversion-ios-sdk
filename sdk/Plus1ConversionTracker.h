@@ -33,17 +33,14 @@
 
 @interface Plus1ConversionTracker : NSObject
 {
-    NSInteger _applicationId;
-    NSInteger _campaignId;
+    NSString *_trackId;
     NSString *_callbackUrl;
 }
 
-@property (nonatomic, assign) NSInteger applicationId;
-@property (nonatomic, assign) NSInteger campaignId;
+@property (nonatomic, retain) NSString *trackId;
 @property (nonatomic, retain) NSString *callbackUrl;
 
-- (id) initWithApplicationId:(NSInteger) applicationId andCallbackUrl:(NSString *) callbackUrl;
-- (id) initWithCampaignId:(NSInteger) campaignId andCallbackUrl:(NSString *) callbackUrl;
+- (id) initWithTrackId:(NSString *) trackId andCallbackUrl:(NSString *) callbackUrl;
 - (BOOL) isFirstRun;
 - (void) run;
 

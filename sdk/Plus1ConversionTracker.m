@@ -45,27 +45,16 @@
 
 @implementation Plus1ConversionTracker
 
-@synthesize applicationId = _applicationId;
-@synthesize campaignId = _campaignId;
+@synthesize trackId = _trackId;
 @synthesize callbackUrl = _callbackUrl;
 
-- (id) initWithApplicationId:(NSInteger) applicationId andCallbackUrl:(NSString *) callbackUrl;
+- (id) initWithTrackId:(NSString *) trackId andCallbackUrl:(NSString *) callbackUrl;
 {
     if ((self = [super init]) != nil) {
-        self.applicationId = applicationId;
+        self.trackId = trackId;
         self.callbackUrl = callbackUrl;
     }
     
-    return self;
-}
-
-- (id) initWithCampaignId:(NSInteger)campaignId andCallbackUrl:(NSString *) callbackUrl;
-{
-    if ((self = [super init]) != nil) {
-        self.campaignId = campaignId;
-        self.callbackUrl = callbackUrl;
-    }
-
     return self;
 }
 
@@ -94,23 +83,12 @@
 
 - (NSURL *) getConversionUrl
 {
+    if (!_trackId)
+        @throw([NSException exceptionWithName:@"Plus1ConversionTracker" reason:@"You must define conversion track id" userInfo:nil]);
+
     if (!_callbackUrl)
         @throw([NSException exceptionWithName:@"Plus1ConversionTracker" reason:@"You must define callback url" userInfo:nil]);
 
-    NSMutableString *url = [NSMutableString stringWithString:ConversionUrl];
-
-    if (_campaignId)
-        [url appendFormat:@"%@/%d/%d", @"campaign", ConversionType, _campaignId];
-    else if (_applicationId)
-        [url appendFormat:@"%@/%d/%d", @"app", ConversionType, _applicationId];
-    else {
-        NSLog(@"Plus1ConversionTracker: %@", @"You forget about set campain/application id");
-
-        return nil;
-    }
-    
-    [url appendFormat:@"/?callback=%@", [NSString stringWithBase64EncodedString:_callbackUrl]];
-    
-    return [NSURL URLWithString:url];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@/?callback=%@", ConversionUrl, _trackId, [NSString stringWithBase64EncodedString:_callbackUrl]]];
 }
 @end

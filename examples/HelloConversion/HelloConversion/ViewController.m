@@ -52,7 +52,7 @@
     _label.textAlignment = UITextAlignmentCenter;
     [self.view addSubview:_label];
 
-    Plus1ConversionTracker *tracker = [[Plus1ConversionTracker alloc] initWithCampaignId:Plus1CampaignId andCallbackUrl:@"wsp1hc://ru.wapstart.plus1.conversion.hello"];
+    Plus1ConversionTracker *tracker = [[Plus1ConversionTracker alloc] initWithTrackId:Plus1TrackId andCallbackUrl:@"wsp1hc://ru.wapstart.plus1.conversion.hello"];
     [tracker run];
     [tracker release];
 }
