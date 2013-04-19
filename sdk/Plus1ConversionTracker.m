@@ -65,11 +65,11 @@
 
 - (void) run
 {
-    _internetReach = [Reachability reachabilityWithHostname:@"www.google.com"];
+    if ([self isFirstRun]) {
+        _internetReach = [Reachability reachabilityWithHostname:@"www.google.com"];
 
-    _internetReach.reachableBlock = ^(Reachability *reach) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ([self isFirstRun]) {
+        _internetReach.reachableBlock = ^(Reachability *reach) {
+            dispatch_async(dispatch_get_main_queue(), ^{
                 NSURL *url = [self getConversionUrl];
 
                 if (url != nil) {
@@ -82,17 +82,17 @@
 
                     [[UIApplication sharedApplication] openURL:url];
                 }
-            }
-        });
-    };
+            });
+        };
 
-    _internetReach.unreachableBlock = ^(Reachability *reach) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"Network unreachable");
-        });
-    };
+        _internetReach.unreachableBlock = ^(Reachability *reach) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"Network unreachable");
+            });
+        };
 
-    [_internetReach startNotifier];
+        [_internetReach startNotifier];
+    }
 }
 
 - (NSURL *) getConversionUrl
