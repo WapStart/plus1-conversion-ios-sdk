@@ -65,20 +65,34 @@
 
 - (void) run
 {
-    if ([self isFirstRun]) {
-        NSURL *url = [self getConversionUrl];
+    _internetReach = [Reachability reachabilityWithHostname:@"www.google.com"];
 
-        if (url != nil) {
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _internetReach.reachableBlock = ^(Reachability *reach) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self isFirstRun]) {
+                NSURL *url = [self getConversionUrl];
 
-            if (defaults) {
-                [defaults setBool:YES forKey:PreferencesName];
-                [defaults synchronize];
+                if (url != nil) {
+                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+                    if (defaults) {
+                        [defaults setBool:YES forKey:PreferencesName];
+                        [defaults synchronize];
+                    }
+
+                    [[UIApplication sharedApplication] openURL:url];
+                }
             }
+        });
+    };
 
-            [[UIApplication sharedApplication] openURL:url];
-        }
-    }
+    _internetReach.unreachableBlock = ^(Reachability *reach) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Network unreachable");
+        });
+    };
+
+    [_internetReach startNotifier];
 }
 
 - (NSURL *) getConversionUrl
@@ -91,4 +105,5 @@
 
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@/?callback=%@", ConversionUrl, _trackId, [NSString stringWithBase64EncodedString:_callbackUrl]]];
 }
+
 @end

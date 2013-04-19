@@ -30,11 +30,14 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "Reachability.h"
 
 @interface Plus1ConversionTracker : NSObject
 {
     NSString *_trackId;
     NSString *_callbackUrl;
+
+    Reachability *_internetReach;
 }
 
 @property (nonatomic, retain) NSString *trackId;
